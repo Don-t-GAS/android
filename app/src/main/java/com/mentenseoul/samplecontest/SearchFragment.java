@@ -1,10 +1,15 @@
 package com.mentenseoul.samplecontest;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -17,6 +22,13 @@ import android.widget.Toast;
 public class SearchFragment extends Fragment {
     EditText searchText;
     String modelName;
+    private FragmentActivity myContext;
+
+    @Override
+    public void onAttach(Activity activity) {
+        myContext=(FragmentActivity) activity;
+        super.onAttach(activity);
+    }
 
     @Nullable
     @Override
@@ -36,11 +48,28 @@ public class SearchFragment extends Fragment {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 modelName = searchText.getText().toString();
                 Toast.makeText(view.getContext(), "test:" + modelName, Toast.LENGTH_SHORT).show();
+                FragmentView(1);
 //                text = editText.getText().toString();
 //                new NoticeJsoup().execute();
                 return true;
             }
         });
+    }
+
+    private void FragmentView(int activity){
+
+        //FragmentTransactiom를 이용해 프래그먼트를 사용합니다.
+        FragmentManager fragmentManager = myContext.getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        switch (activity){
+            case 1:
+                Intent intent = new Intent(getContext(), DetailActivity.class);
+                startActivity(intent);
+                break;
+
+        }
+
     }
 
 

@@ -3,14 +3,13 @@
 
     <item
         android:id="@+id/navigation_menu1"
-        android:icon="@drawable/ic_baseline_folder_24"
-        android:title="피드"/>
-
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="검색" />
 
     <item
         android:id="@+id/navigation_menu2"
-        android:icon="@android:drawable/ic_menu_search"
-        android:title="검색" />
+        android:icon="@drawable/ic_baseline_folder_24"
+        android:title="피드"/>
 
     <item
         android:id="@+id/navigation_menu3"
