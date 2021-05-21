@@ -21,6 +21,7 @@
             />
 
         <TextView
+            android:id="@+id/modelText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
@@ -44,6 +45,7 @@
             />
 
         <TextView
+            android:id="@+id/listText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
@@ -67,6 +69,7 @@
             />
 
         <TextView
+            android:id="@+id/companyText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
@@ -89,6 +92,7 @@
             android:padding="30dp"
             />
         <TextView
+            android:id="@+id/rankText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
