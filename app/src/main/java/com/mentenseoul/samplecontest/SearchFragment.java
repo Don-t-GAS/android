@@ -47,7 +47,6 @@ public class SearchFragment extends Fragment {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 modelName = searchText.getText().toString();
-                Toast.makeText(view.getContext(), "test:" + modelName, Toast.LENGTH_SHORT).show();
                 FragmentView(1);
 //                text = editText.getText().toString();
 //                new NoticeJsoup().execute();
