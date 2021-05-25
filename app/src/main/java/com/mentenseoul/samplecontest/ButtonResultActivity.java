@@ -22,8 +22,8 @@ public class ButtonResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_button_result);
 
-        ImageView imageView = findViewById(R.id.imageView);
-        imageView.setImageResource(R.drawable.polarbear);
+//        ImageView imageView = findViewById(R.id.imageView);
+//        imageView.setImageResource(R.drawable.polarbear);
         textView3 = findViewById(R.id.textView3);
 
         Intent intent = getIntent();

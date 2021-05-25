@@ -1,5 +1,6 @@
 package com.mentenseoul.samplecontest;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,7 +26,7 @@ public class ListFragment extends Fragment {
     ArrayList<String> labelList = new ArrayList<>(); // ArrayList 선언
 
     //두 개의 버튼 임시 추가
-    Button button_activity1;
+    Button button;
     Button button_activity2;
     View mView;
     @Nullable
@@ -41,23 +42,29 @@ public class ListFragment extends Fragment {
         init();
 
         BarChartGraph(labelList, jsonList);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new SaveSharedPreference().clearUserName(getContext());
+                Intent intent = new Intent(getContext(), LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
     }
     public void init(){
 
-        button_activity1 =(Button) mView.findViewById(R.id.button_activity1);
+        button =(Button) mView.findViewById(R.id.button);
         button_activity2 =(Button) mView.findViewById(R.id.button_activity2);
-
-        //button_activity1.setOnClickListener(this);
-        //button_activity2.setOnClickListener(this);
 
 
         jsonList.add(10);
-        jsonList.add(3);
-        jsonList.add(1);
-        jsonList.add(2);
-        jsonList.add(5);
+        jsonList.add(10);
+        jsonList.add(10);
+        jsonList.add(10);
+        jsonList.add(10);
 
-        labelList.add("1");
+        labelList.add("1등급");
         labelList.add("2등급");
         labelList.add("3등급");
         labelList.add("4등급");
@@ -92,26 +99,5 @@ public class ListFragment extends Fragment {
         barChart.invalidate();
     }
 
-    /*
-    @Override
-    public void onClick(View view) {
 
-        switch (view.getId()) {
-
-            case R.id.button_activity1:
-
-                break;
-
-            case R.id.button_activity2:
-
-                break;
-
-            default:
-
-                break;
-
-        }
-
-    }
-    */
 }
