@@ -7,75 +7,47 @@
     android:background="#FAF9FE"
     tools:context=".ListFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".FeedActivity">
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView_feed"
-            android:layout_width="95dp"
-            android:layout_height="52dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="56dp"
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:fontFamily="@font/choice"
+            android:paddingLeft="10dp"
+            android:paddingTop="25dp"
             android:text="Feed"
-            android:textSize="40sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textColor="@color/black"
+            android:textSize="40dp"
 
-        <TextView
-            android:id="@+id/textview_resume"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="116dp"
-            android:text="Resume"
-            android:textSize="25sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textStyle="bold" />
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/chart"
+            android:layout_margin="15dp"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
-            android:layout_marginTop="13dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textview_resume" />
+            android:layout_height="240dp" />
 
-        <TextView
-            android:id="@+id/textView_activePrograms"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="30dp"
-            android:text="Active Programs"
-            android:textSize="25dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chart" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="359dp"
-            android:layout_height="102dp"
-            android:layout_marginTop="12dp"
-            android:text="로그아웃"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_activePrograms" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-        <Button
-            android:id="@+id/button_activity2"
-            android:layout_width="359dp"
-            android:layout_height="102dp"
-            android:layout_marginTop="12dp"
-            android:text="활동2"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </ScrollView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </FrameLayout>

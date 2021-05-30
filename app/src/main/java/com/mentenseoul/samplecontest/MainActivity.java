@@ -14,9 +14,12 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView mBottomNV;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +34,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         mBottomNV = findViewById(R.id.navigationView);
+
         mBottomNV.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() { //NavigationItemSelecte
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                BottomNavigate(menuItem.getItemId());
-
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                BottomNavigate(item.getItemId());
 
                 return true;
             }
@@ -59,9 +62,12 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new SearchFragment();
 
             } else if (id == R.id.navigation_menu2){
-
                 fragment = new ListFragment();
-            }else {
+
+            } else if (id == R.id.navigation_menu4){
+                fragment = new QuizFragment();
+
+            } else {
                 fragment = new ProfileFragment();
             }
 
@@ -70,11 +76,12 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.show(fragment);
         }
 
-        fragmentTransaction.setPrimaryNavigationFragment(fragment);
-        fragmentTransaction.setReorderingAllowed(true);
-        fragmentTransaction.commitNow();
+//        fragmentTransaction.setPrimaryNavigationFragment(fragment);
+        fragmentTransaction.setReorderingAllowed(false).detach(fragment).attach(fragment);
+        fragmentTransaction.commit();
 
 
     }
+
 
 }

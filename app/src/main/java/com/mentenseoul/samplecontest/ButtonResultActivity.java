@@ -48,6 +48,7 @@ public class ButtonResultActivity extends AppCompatActivity {
                 finish();
                 DetailActivity mDetailActivity = (DetailActivity) DetailActivity.activity;
                 mDetailActivity.finish();
+
             }
         });
     }

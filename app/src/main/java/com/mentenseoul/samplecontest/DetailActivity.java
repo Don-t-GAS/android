@@ -3,6 +3,7 @@ package com.mentenseoul.samplecontest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -22,7 +23,12 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.IOException;
 import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -33,6 +39,11 @@ public class DetailActivity extends AppCompatActivity {
     TextView listText;
     TextView companyText;
     TextView rankText;
+
+    private RetrofitClient retrofitClient;
+    private RetrofitAPI retrofitAPI;
+
+    XmlData xmlData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,21 +58,27 @@ public class DetailActivity extends AppCompatActivity {
         rankText = findViewById(R.id.rankText);
 
         Intent intent = getIntent();
-        XmlData xmlData = (XmlData) intent.getSerializableExtra("list");
+        xmlData = (XmlData) intent.getSerializableExtra("list");
 
         modeltext.setText(xmlData.getModel());
         listText.setText(xmlData.getName());
         companyText.setText(xmlData.getCompany());
         rankText.setText(xmlData.getRank());
+        if(xmlData.getModel().equals("없음")){
+            button.setVisibility(View.GONE);
+        }
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                purchaseResponse();
                 Intent intent = new Intent(getApplicationContext(), ButtonResultActivity.class);
                 Bundle bundle =new Bundle();
                 bundle.putString("data", xmlData.getRank());
                 intent.putExtra("myBundle", bundle);
                 startActivity(intent);
+
 
             }
         });
@@ -69,5 +86,42 @@ public class DetailActivity extends AppCompatActivity {
 
 
     }
+
+    private void purchaseResponse() {
+        String token = SaveSharedPreference.getUserName(getApplicationContext());
+
+        retrofitClient = retrofitClient.getInstance();
+        retrofitAPI = retrofitClient.getRetrofitInterface();
+
+        PurchaseRequest purchaseRequest = new PurchaseRequest(xmlData.getCompany(), xmlData.getName(), xmlData.getModel(), xmlData.getRank());
+
+        retrofitAPI.getPurchaseResponse(token, purchaseRequest).enqueue(new Callback<PurchaseResponse>() {
+            @Override
+            public void onResponse(Call<PurchaseResponse> call, Response<PurchaseResponse> response) {
+
+                if (response.isSuccessful()
+                        && response.body().getStatus().toString().equals("200")
+                        && response.body().getResponseMessage().equals("구매 성공")){
+                    Toast.makeText(DetailActivity.this, response.body().getResponseMessage(), Toast.LENGTH_SHORT).show();
+
+                } else {
+                    try {
+                        Log.d("error", response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+
+            //통신 실패
+            @Override
+            public void onFailure(Call<PurchaseResponse> call, Throwable t){
+                Log.d("fail", t.getMessage());
+
+            }
+        });
+    }
+
 
 }

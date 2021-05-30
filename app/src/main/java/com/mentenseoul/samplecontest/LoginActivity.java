@@ -37,6 +37,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
         idText = findViewById(R.id.idText);
         passwordText = findViewById(R.id.passwordText);
         loginButton = findViewById(R.id.loginButton);
@@ -92,11 +93,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(LoginActivity.this, "로그인 성공!!", Toast.LENGTH_SHORT).show();
                     //화면 전환
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//                    Bundle bundle =new Bundle();
-//                    bundle.putString("token", response.body().getData().getJwt());
                     SaveSharedPreference saveSharedPreference = new SaveSharedPreference();
                     saveSharedPreference.setUserName(getApplicationContext(), response.body().getData().getJwt());
-//                    intent.putExtra("myBundle", bundle);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 } else { // 로그인 실패

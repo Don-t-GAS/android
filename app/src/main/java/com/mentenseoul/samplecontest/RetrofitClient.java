@@ -23,7 +23,7 @@ public class RetrofitClient {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(client) //로그 기능 추가
+//                .client(client) //로그 기능 추가
                 .build();
         retrofitAPI = retrofit.create(RetrofitAPI.class);
 //        Log.d("TEST", "실행 완료");
