@@ -1,5 +1,7 @@
 package com.mentenseoul.samplecontest;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +16,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -55,6 +59,7 @@ public class QuizFragment extends Fragment {
         yesButton = view.findViewById(R.id.yesButton);
         noButton = view.findViewById(R.id.noButton);
 
+
 //        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 //            @Override
 //            public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -73,12 +78,20 @@ public class QuizFragment extends Fragment {
                     } else {
                         Toast.makeText(getContext(), "오답ㅠㅠ", Toast.LENGTH_SHORT).show();
                     }
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    QuizAnswer quizAnswer = new QuizAnswer();
+                    transaction.replace(R.id.content_layout, quizAnswer);
+                    transaction.commit();
                 } else if (noButton.isChecked()){
                     if(ans.equals("false")){
                         Toast.makeText(getContext(), "정답!", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getContext(), "오답ㅠㅠ", Toast.LENGTH_SHORT).show();
                     }
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    QuizAnswer quizAnswer = new QuizAnswer();
+                    transaction.replace(R.id.content_layout, quizAnswer);
+                    transaction.commit();
                 } else {
                     Toast.makeText(getContext(), "답을 골라주세요!", Toast.LENGTH_SHORT).show();
                 }
@@ -112,7 +125,6 @@ public class QuizFragment extends Fragment {
                         e.printStackTrace();
                     }
                 }
-
             }
 
             //통신 실패
