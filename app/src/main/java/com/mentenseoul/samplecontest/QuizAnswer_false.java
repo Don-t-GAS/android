@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,7 +18,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class QuizAnswer extends Fragment {
+public class QuizAnswer_false extends Fragment {
 
     TextView answerText;
     Button okayButton;
@@ -37,7 +38,7 @@ public class QuizAnswer extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.fragment_quiz_answer, container, false);
+        return inflater.inflate(R.layout.fragment_quiz_answer_false, container, false);
     }
 
     @Override
@@ -47,6 +48,16 @@ public class QuizAnswer extends Fragment {
         okayButton = view.findViewById(R.id.okayButton);
 
         answerResponse();
+
+        okayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                QuizFragment quizFragment = new QuizFragment();
+                transaction.replace(R.id.content_layout, quizFragment);
+                transaction.commit();
+            }
+        });
     }
 
     private void answerResponse() {

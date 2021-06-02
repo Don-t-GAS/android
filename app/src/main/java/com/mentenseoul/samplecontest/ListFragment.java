@@ -2,6 +2,7 @@ package com.mentenseoul.samplecontest;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.ColorMatrix;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -27,6 +28,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -93,8 +95,10 @@ public class ListFragment extends Fragment {
     private void BarChartGraph(ArrayList<String> labelList, ArrayList<Integer> valList) {
         // BarChart 메소드
         BarChart barChart = (BarChart)mView.findViewById(R.id.chart);
-        barChart.getAxisRight().setAxisMaxValue(25);
-        barChart.getAxisLeft().setAxisMaxValue(25);
+        barChart.getAxisRight().setAxisMaxValue(10);
+        barChart.getAxisLeft().setAxisMaxValue(10);
+        barChart.setTouchEnabled(false);
+        barChart.setBorderColor(Color.YELLOW);
 
         ArrayList<BarEntry> entries = new ArrayList<>();
         for(int i=0; i < valList.size();i++){
@@ -111,10 +115,12 @@ public class ListFragment extends Fragment {
         }
 
         BarData data = new BarData(labels,depenses);
-        depenses.setColors(ColorTemplate.VORDIPLOM_COLORS); //
+        depenses.setColors(new int[]{ColorTemplate.rgb("#FBEAFF"),ColorTemplate.rgb("#EEA8FF"),
+                ColorTemplate.rgb("#CA65E2"),ColorTemplate.rgb("#86269C"),ColorTemplate.rgb("#4F175C")});
+        depenses.setHighLightColor(ColorTemplate.rgb("#00FFD0"));
 
         barChart.setData(data);
-        barChart.animateXY(1000,1000);
+        barChart.animateXY(0,1500);
         barChart.invalidate();
     }
     public void countsResponse() {
@@ -140,6 +146,7 @@ public class ListFragment extends Fragment {
                     jsonList.add(response.body().getData().getFourthCnt());
                     jsonList.add(response.body().getData().getFivethCnt());
                     BarChartGraph(labelList, jsonList);
+
                 } else {
                     try {
                         Log.d("error", response.errorBody().string());

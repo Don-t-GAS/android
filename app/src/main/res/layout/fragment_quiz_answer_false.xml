@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAF9FE"
-    tools:context=".QuizAnswer">
+    android:background="#FF9494"
+    tools:context=".QuizAnswer_false">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,8 +14,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
+            android:layout_height="200dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
@@ -23,11 +22,10 @@
                 android:id="@+id/textView_answer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_weight="1"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/choice"
                 android:gravity="center"
-                android:text="Answer"
+                android:text="Wrong !"
                 android:textColor="@color/black"
                 android:textSize="40dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -38,8 +36,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="3">
+            android:layout_height="300dp">
 
             <TextView
                 android:id="@+id/answerText"
@@ -47,6 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
+                android:background="#FFFFFF"
                 android:text="해설"
                 android:fontFamily="@font/choice"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -56,20 +54,27 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.334" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="3">
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/okayButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:backgroundTint="#FAF9FE"
+                android:text="확인"
+                android:textColor="#9378FF"
+                android:textStyle="bold"
+                app:cornerRadius="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Button
-            android:id="@+id/okayButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="70dp"
-            android:layout_marginRight="70dp"
-            android:layout_marginBottom="30dp"
-            android:fontFamily="@font/choice"
-            android:text="확인" />
     </LinearLayout>
 </FrameLayout>

@@ -1,7 +1,5 @@
 package com.mentenseoul.samplecontest;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,15 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
-import java.io.IOException;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -53,6 +44,7 @@ public class QuizFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         titleText = view.findViewById(R.id.titleText);
         submitButton = view.findViewById(R.id.submitButton);
         radioGroup = view.findViewById(R.id.radioGroup);
@@ -75,23 +67,31 @@ public class QuizFragment extends Fragment {
                 if(yesButton.isChecked()){
                     if(ans.equals("true")){
                         Toast.makeText(getContext(), "정답!", Toast.LENGTH_SHORT).show();
+                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        QuizAnswer_true quizAnswer_true = new QuizAnswer_true();
+                        transaction.replace(R.id.content_layout, quizAnswer_true);
+                        transaction.commit();
                     } else {
                         Toast.makeText(getContext(), "오답ㅠㅠ", Toast.LENGTH_SHORT).show();
+                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        QuizAnswer_false quizAnswer_false = new QuizAnswer_false();
+                        transaction.replace(R.id.content_layout, quizAnswer_false);
+                        transaction.commit();
                     }
-                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    QuizAnswer quizAnswer = new QuizAnswer();
-                    transaction.replace(R.id.content_layout, quizAnswer);
-                    transaction.commit();
                 } else if (noButton.isChecked()){
-                    if(ans.equals("false")){
+                    if(ans.equals("true")){
                         Toast.makeText(getContext(), "정답!", Toast.LENGTH_SHORT).show();
+                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        QuizAnswer_true quizAnswer_true = new QuizAnswer_true();
+                        transaction.replace(R.id.content_layout, quizAnswer_true);
+                        transaction.commit();
                     } else {
                         Toast.makeText(getContext(), "오답ㅠㅠ", Toast.LENGTH_SHORT).show();
+                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        QuizAnswer_false quizAnswer_false = new QuizAnswer_false();
+                        transaction.replace(R.id.content_layout, quizAnswer_false);
+                        transaction.commit();
                     }
-                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    QuizAnswer quizAnswer = new QuizAnswer();
-                    transaction.replace(R.id.content_layout, quizAnswer);
-                    transaction.commit();
                 } else {
                     Toast.makeText(getContext(), "답을 골라주세요!", Toast.LENGTH_SHORT).show();
                 }
