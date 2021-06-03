@@ -26,13 +26,7 @@ public class QuizAnswer_true extends Fragment {
     private RetrofitClient retrofitClient;
     private RetrofitAPI retrofitAPI;
 
-    /*
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        answerResponse();
-    }
-    */
+    String des;
 
     @Nullable
     @Override
@@ -47,7 +41,12 @@ public class QuizAnswer_true extends Fragment {
         answerText = view.findViewById(R.id.answerText);
         okayButton = view.findViewById(R.id.okayButton);
 
-        answerResponse();
+        Bundle bundle = getArguments();
+
+        if(bundle != null){
+            des = bundle.getString("des");
+            answerText.setText(des);
+        }
 
         okayButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,36 +59,5 @@ public class QuizAnswer_true extends Fragment {
         });
     }
 
-    private void answerResponse() {
-        String token = SaveSharedPreference.getUserName(getContext());
 
-        retrofitClient = retrofitClient.getInstance();
-        retrofitAPI = retrofitClient.getRetrofitInterface();
-
-        //loginRequest에 저장된 데이터와 함께 init에서 정의한 getLoginResponse 함수를 실행한 후 응답을 받음
-        retrofitAPI.getQuizResponse(token).enqueue(new Callback<QuizResponse>() {
-            @Override
-            public void onResponse(Call<QuizResponse> call, Response<QuizResponse> response) {
-
-                if (response.isSuccessful()){
-                    answerText.setText(response.body().getData().getDescription());
-                    Log.d("answer", "test");
-                } else {
-                    try {
-                        Log.d("error", "message: " + response.errorBody().string());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            }
-
-            //통신 실패
-            @Override
-            public void onFailure(Call<QuizResponse> call, Throwable t){
-                Log.d("fail", t.getMessage());
-
-            }
-        });
-    }
 }

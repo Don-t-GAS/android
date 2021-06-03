@@ -30,10 +30,12 @@ public class QuizFragment extends Fragment {
 
     String id;
     String ans;
+    String des;
 
     private RetrofitClient retrofitClient;
     private RetrofitAPI retrofitAPI;
 
+    Bundle bundle;
 
     @Nullable
     @Override
@@ -50,45 +52,48 @@ public class QuizFragment extends Fragment {
         radioGroup = view.findViewById(R.id.radioGroup);
         yesButton = view.findViewById(R.id.yesButton);
         noButton = view.findViewById(R.id.noButton);
-
-
-//        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                if(yesButton.isChecked())
-//            }
-//        })
-
-
         quizResponse();
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(yesButton.isChecked()){
                     if(ans.equals("true")){
+                        bundle = new Bundle();
                         Toast.makeText(getContext(), "정답!", Toast.LENGTH_SHORT).show();
                         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                         QuizAnswer_true quizAnswer_true = new QuizAnswer_true();
+                        bundle.putString("des", des);
+                        quizAnswer_true.setArguments(bundle);
                         transaction.replace(R.id.content_layout, quizAnswer_true);
                         transaction.commit();
                     } else {
+                        bundle = new Bundle();
                         Toast.makeText(getContext(), "오답ㅠㅠ", Toast.LENGTH_SHORT).show();
                         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                         QuizAnswer_false quizAnswer_false = new QuizAnswer_false();
+                        bundle.putString("des", des);
+                        quizAnswer_false.setArguments(bundle);
                         transaction.replace(R.id.content_layout, quizAnswer_false);
                         transaction.commit();
                     }
                 } else if (noButton.isChecked()){
-                    if(ans.equals("true")){
-                        Toast.makeText(getContext(), "정답!", Toast.LENGTH_SHORT).show();
+                    if(ans.equals("false")){
+                        bundle = new Bundle();
+                        Toast.makeText(getContext(), "정답입니다!", Toast.LENGTH_SHORT).show();
                         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                         QuizAnswer_true quizAnswer_true = new QuizAnswer_true();
+                        bundle.putString("des", des);
+                        quizAnswer_true.setArguments(bundle);
                         transaction.replace(R.id.content_layout, quizAnswer_true);
                         transaction.commit();
                     } else {
-                        Toast.makeText(getContext(), "오답ㅠㅠ", Toast.LENGTH_SHORT).show();
+                        bundle = new Bundle();
+                        Toast.makeText(getContext(), "오답입니다 ㅠㅠ", Toast.LENGTH_SHORT).show();
                         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                         QuizAnswer_false quizAnswer_false = new QuizAnswer_false();
+                        bundle.putString("des", des);
+                        quizAnswer_false.setArguments(bundle);
                         transaction.replace(R.id.content_layout, quizAnswer_false);
                         transaction.commit();
                     }
@@ -117,6 +122,7 @@ public class QuizFragment extends Fragment {
                     titleText.setText(response.body().getData().getTitle());
                     id  = response.body().getData().getId().toString();
                     ans = response.body().getData().getAnswer().toString();
+                    des = response.body().getData().getDescription();
 
                 } else {
                     try {
