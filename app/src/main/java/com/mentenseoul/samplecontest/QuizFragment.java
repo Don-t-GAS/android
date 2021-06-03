@@ -58,6 +58,7 @@ public class QuizFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(yesButton.isChecked()){
+                    answerResponse(id, "true");
                     if(ans.equals("true")){
                         bundle = new Bundle();
                         Toast.makeText(getContext(), "정답!", Toast.LENGTH_SHORT).show();
@@ -78,6 +79,7 @@ public class QuizFragment extends Fragment {
                         transaction.commit();
                     }
                 } else if (noButton.isChecked()){
+                    answerResponse(id, "false");
                     if(ans.equals("false")){
                         bundle = new Bundle();
                         Toast.makeText(getContext(), "정답입니다!", Toast.LENGTH_SHORT).show();
@@ -141,19 +143,19 @@ public class QuizFragment extends Fragment {
             }
         });
     }
-    private void answerResponse() {
+    private void answerResponse(String id, String answer) {
         String token = SaveSharedPreference.getUserName(getContext());
 
         retrofitClient = retrofitClient.getInstance();
         retrofitAPI = retrofitClient.getRetrofitInterface();
 
         //loginRequest에 저장된 데이터와 함께 init에서 정의한 getLoginResponse 함수를 실행한 후 응답을 받음
-        retrofitAPI.getAnswerResponse(token, "2", "true").enqueue(new Callback<AnswerResponse>() {
+        retrofitAPI.getAnswerResponse(token, id, answer).enqueue(new Callback<AnswerResponse>() {
             @Override
             public void onResponse(Call call, Response response) {
 
                 if (response.isSuccessful()){
-                    Log.d("answer", "test");
+//                    Toast.makeText(getContext(), "포인트 획득!", Toast.LENGTH_SHORT).show();
                 } else {
                     try {
                         Log.d("error", "message: " + response.errorBody().string());
@@ -161,7 +163,6 @@ public class QuizFragment extends Fragment {
                         e.printStackTrace();
                     }
                 }
-
             }
 
             //통신 실패
